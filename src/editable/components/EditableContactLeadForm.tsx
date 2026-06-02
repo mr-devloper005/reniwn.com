@@ -23,29 +23,29 @@ export function EditableContactLeadForm() {
         body: JSON.stringify(Object.fromEntries(formData.entries())),
       })
       const data = await response.json().catch(() => ({}))
-      if (!response.ok) throw new Error(data?.message || 'Unable to send your message.')
+      if (!response.ok) throw new Error(data?.message || 'Unable to send your Reniwn message.')
       setStatus('success')
-      setMessage(data?.message || 'Thanks. Your message has been received.')
+      setMessage(data?.message || 'Thanks. Your Reniwn message has been received.')
       form.reset()
     } catch (error) {
       setStatus('error')
-      setMessage(error instanceof Error ? error.message : 'Unable to send your message.')
+      setMessage(error instanceof Error ? error.message : 'Unable to send your Reniwn message.')
     }
   }
 
   return (
     <form onSubmit={handleSubmit} className="rounded-[2rem] border border-[var(--editable-border)] bg-white/90 p-6 shadow-2xl shadow-black/5 backdrop-blur md:p-8">
       <div className="grid gap-4 md:grid-cols-2">
-        <Field name="name" label="Full name" placeholder="Your name" required />
-        <Field name="email" type="email" label="Email address" placeholder="you@example.com" required />
+        <Field name="name" label="Full name" placeholder="Name for this Reniwn request" required />
+        <Field name="email" type="email" label="Email address" placeholder="Email for Reniwn replies" required />
       </div>
       <div className="mt-4 grid gap-4 md:grid-cols-2">
-        <Field name="phone" label="Phone number" placeholder="Optional" />
-        <Field name="subject" label="Subject" placeholder="How can we help?" />
+        <Field name="phone" label="Phone number" placeholder="Optional callback number" />
+        <Field name="subject" label="Subject" placeholder="Listing, account, or category help" />
       </div>
       <label className="mt-4 grid gap-2 text-sm font-black opacity-75">
         Message
-        <textarea name="message" required rows={6} placeholder="Tell us what you need help with..." className="rounded-2xl border border-[var(--editable-border)] bg-white px-4 py-3 text-base font-medium outline-none transition focus:border-current" />
+        <textarea name="message" required rows={6} placeholder="Tell us which Reniwn listing, category, article, or account issue needs attention." className="rounded-2xl border border-[var(--editable-border)] bg-white px-4 py-3 text-base font-medium outline-none transition focus:border-current" />
       </label>
       <input name="company" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
       {message ? (

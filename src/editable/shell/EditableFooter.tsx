@@ -1,58 +1,71 @@
 'use client'
 
 import Link from 'next/link'
-import type { CSSProperties } from 'react'
-import { ArrowUpRight } from 'lucide-react'
+import { Facebook, Instagram, Linkedin, Mail, MessageCircle, Music2, Play, Send, Twitter } from 'lucide-react'
 import { SITE_CONFIG } from '@/lib/site-config'
-import { globalContent } from '@/editable/content/global.content'
-import { useEditableLocalAuthSession } from '@/editable/components/EditableLocalAuthForms'
+
+const socialItems = [
+  { label: 'Facebook', icon: Facebook },
+  { label: 'Instagram', icon: Instagram },
+  { label: 'Twitter', icon: Twitter },
+  { label: 'Community', icon: MessageCircle },
+  { label: 'Video', icon: Play },
+  { label: 'Shorts', icon: Music2 },
+  { label: 'LinkedIn', icon: Linkedin },
+]
 
 export function EditableFooter() {
-  const footerVars = { '--editable-footer-bg': 'var(--editable-page-bg, #fffaf3)', '--editable-footer-text': 'var(--editable-page-text, #241915)' } as CSSProperties
-  const taskLinks = SITE_CONFIG.tasks.filter((task) => task.enabled)
   const year = new Date().getFullYear()
-  const { session, logout } = useEditableLocalAuthSession()
 
   return (
-    <footer style={footerVars} className="border-t border-[var(--editable-border)] bg-[var(--editable-footer-bg)] text-[var(--editable-footer-text)]">
-      <div className="mx-auto grid max-w-[var(--editable-container)] gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[1.2fr_1fr_1fr] lg:px-8">
-        <div>
-          <Link href="/" className="inline-flex items-center gap-3">
-            <span className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-2xl border border-[var(--editable-border)] bg-white">
-              <img src="/favicon.png?v=20260413" alt={SITE_CONFIG.name} className="h-9 w-9 object-contain" />
+    <footer className="bg-white text-[#333333]">
+      <div className="mx-auto max-w-[1168px] px-4 pb-8 pt-12 sm:px-6 lg:px-0">
+        <form action="/contact" className="mx-auto max-w-[980px]">
+          <div className="mb-5 flex items-center gap-3 text-lg font-bold text-[#172033]">
+            <Send className="h-7 w-7 fill-[#ff6a2a] text-[#ff6a2a]" />
+            <span>Subscribe now to get Reniwn listing tips and marketplace updates!</span>
+          </div>
+          <div className="grid gap-4 md:grid-cols-[1fr_1.28fr_0.95fr_1.2fr]">
+            <input name="name" placeholder="Reniwn subscriber name" className="h-14 rounded border border-black/5 bg-white px-7 text-sm shadow-[0_12px_44px_rgba(0,0,0,0.07)] outline-none placeholder:text-[#b3bac4]" />
+            <input name="email" type="email" placeholder="Email for listing updates" className="h-14 rounded border border-black/5 bg-white px-7 text-sm shadow-[0_12px_44px_rgba(0,0,0,0.07)] outline-none placeholder:text-[#b3bac4]" />
+            <button className="h-14 rounded bg-[#ffd33e] px-8 text-sm font-bold text-black shadow-[0_12px_44px_rgba(255,211,62,0.25)] transition hover:bg-[#ffc829]">Subscribe</button>
+            <div className="flex h-14 items-center gap-3 border border-black/20 bg-[#fafafa] px-4 text-sm text-[#333333]">
+              <span className="h-7 w-7 border-2 border-[#555555] bg-white" />
+              <span className="flex-1">I'm not a robot</span>
+              <span className="text-[10px] leading-tight text-[#777777]">reCAPTCHA</span>
+            </div>
+          </div>
+        </form>
+
+        <div className="mt-12 flex justify-center gap-1">
+          {socialItems.map(({ label, icon: Icon }) => (
+            <span key={label} className="flex h-6 w-6 items-center justify-center border border-[#d33] bg-[#f6f9ff] text-[#1467c8]" title={label}>
+              <Icon className="h-4 w-4" />
             </span>
-            <span className="text-lg font-black tracking-[-0.04em]">{SITE_CONFIG.name}</span>
-          </Link>
-          <p className="mt-4 max-w-md text-sm leading-7 opacity-70">{globalContent.footer?.description || SITE_CONFIG.description}</p>
+          ))}
         </div>
 
-        <div>
-          <h3 className="text-xs font-black uppercase tracking-[0.22em] opacity-55">Explore</h3>
-          <div className="mt-4 grid gap-2">
-            {taskLinks.map((task) => (
-              <Link key={task.key} href={task.route} className="inline-flex items-center gap-2 text-sm font-bold opacity-75 hover:opacity-100">
-                {task.label} <ArrowUpRight className="h-3.5 w-3.5" />
-              </Link>
-            ))}
-          </div>
-        </div>
+        <nav className="mt-5 flex flex-wrap justify-center gap-x-3 gap-y-2 text-sm text-[#006bd6]">
+          <Link href="/contact">Groups</Link>
+          <span className="text-[#777777]">|</span>
+          <Link href="/contact">Subscribe</Link>
+          <span className="text-[#777777]">|</span>
+          <Link href="/about">FAQ</Link>
+          <span className="text-[#777777]">|</span>
+          <Link href="/about">Terms of Use</Link>
+          <span className="text-[#777777]">|</span>
+          <Link href="/about">Privacy Statement</Link>
+        </nav>
 
-        <div>
-          <h3 className="text-xs font-black uppercase tracking-[0.22em] opacity-55">Site</h3>
-          <div className="mt-4 grid gap-2">
-            {[
-              ['About', '/about'],
-              ['Contact', '/contact'],
-              ...(session ? [['Create', '/create']] : [['Login', '/login'], ['Sign up', '/signup']]),
-            ].map(([label, href]) => (
-              <Link key={href} href={href} className="text-sm font-bold opacity-75 hover:opacity-100">{label}</Link>
-            ))}
-            {session ? <button type="button" onClick={logout} className="text-left text-sm font-bold opacity-75 hover:opacity-100">Logout</button> : null}
-          </div>
+        <div className="mt-5 space-y-3 text-center text-sm">
+          <p>Content copyright &copy; 2000-{year} <Link href="/" className="text-[#006bd6]">Reniwn Classifieds and AI Search</Link></p>
+          <p className="flex flex-wrap items-center justify-center gap-1">
+            <span>All rights reserved. Contact us at</span>
+            <Mail className="h-4 w-4 text-[#006bd6]" />
+            <Link href="mailto:support@reniwn.com" className="text-[#006bd6] underline decoration-dotted underline-offset-2">support@reniwn.com</Link>
+          </p>
+          <p className="sr-only">{SITE_CONFIG.name}</p>
         </div>
-      </div>
-      <div className="border-t border-[var(--editable-border)] px-4 py-5 text-center text-xs font-bold opacity-55">
-        © {year} {SITE_CONFIG.name}. All rights reserved.
       </div>
     </footer>
   )
