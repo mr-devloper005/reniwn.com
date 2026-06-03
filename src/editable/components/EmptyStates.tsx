@@ -11,8 +11,8 @@ type EmptyStateProps = {
 }
 
 export function EmptyState({
-  title = 'Nothing published here yet',
-  description = 'Fresh posts will appear here automatically once this section has published content.',
+  title = 'No Reniwn posts are available here yet',
+  description = 'Classifieds, listings, articles, and marketplace resources will appear here as soon as matching posts are published.',
   actionLabel = 'Back to home',
   actionHref = '/',
   className,
@@ -37,8 +37,8 @@ export function TaskEmptyState({ taskLabel = 'posts', className }: { taskLabel?:
     <EmptyState
       className={className}
       title={`No ${taskLabel} available yet`}
-      description={`Published ${taskLabel} from the master panel will appear here automatically. The page layout stays ready even when the feed is empty.`}
-      actionLabel="Explore the site"
+      description={`Published ${taskLabel} for deals, property, jobs, services, or related marketplace browsing will appear here automatically.`}
+      actionLabel="Browse Reniwn"
       actionHref="/"
     />
   )
@@ -49,7 +49,7 @@ export function ContactSuccessState({ className }: { className?: string }) {
     <EmptyState
       className={className}
       title="Message received"
-      description="Thanks for reaching out. Your request has been saved and routed through the contact workflow."
+      description="Thanks for reaching out. Your Reniwn support request has been received."
       actionLabel="Return home"
       actionHref="/"
     />
