@@ -97,14 +97,14 @@ export default function CommentsPage() {
           <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
             <div>
               <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.24em] text-muted-foreground">
-                <MessageSquare className="h-4 w-4" /> Local comments
+                <MessageSquare className="h-4 w-4" /> Reniwn article comments
               </p>
-              <h1 className="mt-4 text-4xl font-semibold tracking-[-0.04em] sm:text-5xl">Comments</h1>
+              <h1 className="mt-4 text-4xl font-semibold tracking-[-0.04em] sm:text-5xl">Reniwn Comments</h1>
               <p className="mt-4 max-w-2xl text-sm leading-7 text-muted-foreground">
-                Review comments saved in this browser from article pages.
+                Review comments saved in this browser from Reniwn article pages.
               </p>
             </div>
-            <button type="button" className="rounded-full border border-[var(--editable-border)] px-4 py-2 text-sm font-black" onClick={refreshComments}>Refresh comments</button>
+            <button type="button" className="rounded-full border border-[var(--editable-border)] px-4 py-2 text-sm font-black" onClick={refreshComments}>Refresh Reniwn comments</button>
           </div>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -116,7 +116,7 @@ export default function CommentsPage() {
                   setQuery(event.target.value)
                   setPage(1)
                 }}
-                placeholder="Search comments..."
+                placeholder="Search Reniwn article comments"
                 className="h-11 w-full rounded-2xl border border-[var(--editable-border)] bg-white pl-9 pr-3 text-sm outline-none"
               />
             </div>
@@ -148,8 +148,8 @@ export default function CommentsPage() {
           </section>
         ) : (
           <section className="mt-8 rounded-2xl border border-dashed border-border bg-card/70 p-8 text-center">
-            <h2 className="text-xl font-semibold text-foreground">No comments yet</h2>
-            <p className="mt-2 text-sm text-muted-foreground">Add a comment on any article page and it will appear here.</p>
+            <h2 className="text-xl font-semibold text-foreground">No Reniwn comments yet</h2>
+            <p className="mt-2 text-sm text-muted-foreground">Add a comment on a Reniwn article page and it will appear here.</p>
           </section>
         )}
 

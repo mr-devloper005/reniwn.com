@@ -1,6 +1,6 @@
-# Slot 4 Editable Manifest
+# Reniwn Editable Manifest
 
-Slot 4 is now a reference-ready editable UI architecture.
+Reniwn uses this folder as the editable UI layer for its classified marketplace experience.
 
 ## Contract
 
