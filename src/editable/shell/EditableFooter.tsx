@@ -30,9 +30,7 @@ export function EditableFooter() {
         <div className="mt-5 space-y-3 text-center text-sm">
           <p>Content copyright &copy; 2000-{year} <Link href="/" className="text-[#006bd6]">Reniwn Classifieds and AI Search</Link></p>
           <p className="flex flex-wrap items-center justify-center gap-1">
-            <span>All rights reserved</span>
-            
-            
+         
           </p>
           <p className="sr-only">{SITE_CONFIG.name}</p>
         </div>
