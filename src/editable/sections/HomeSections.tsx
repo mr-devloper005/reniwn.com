@@ -136,7 +136,7 @@ export function EditableStoryRail({ primaryRoute }: HomeSectionProps) {
   )
 }
 
-export function EditableMagazineSplit() {
+export function EditableMagazineSplit(_props: HomeSectionProps) {
   return (
     <section className="bg-[#f4f8ff] px-4 py-16 sm:px-6">
       <h2 className="text-center text-[28px] font-normal uppercase tracking-[0.02em] text-[#3a3a3a]">Browse or post ads in the following countries:</h2>

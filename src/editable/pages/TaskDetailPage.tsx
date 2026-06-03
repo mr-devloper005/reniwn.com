@@ -284,7 +284,7 @@ function ImageStrip({ images, label, large = false }: { images: string[]; label:
 
 function ContactAction({ website, phone, email }: { website?: string; phone?: string; email?: string }) {
   if (!website && !phone && !email) return null
-  return <div className="mt-5 rounded-lg border border-black/10 bg-white p-5 shadow-sm"><p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#666666]">Contact options</p><div className="mt-4 flex flex-wrap gap-3">{website ? <Link href={website} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded bg-[#303030] px-4 py-2 text-sm font-semibold text-white">Website <ExternalLink className="h-4 w-4" /></Link> : null}{phone ? <a href={`tel:${phone}`} className="inline-flex items-center gap-2 rounded border border-black/10 px-4 py-2 text-sm font-semibold"><Phone className="h-4 w-4" /> Call</a> : null}{email ? <a href={`mailto:${email}`} className="inline-flex items-center gap-2 rounded border border-black/10 px-4 py-2 text-sm font-semibold"><Mail className="h-4 w-4" /> Email</a> : null}</div></div>
+  return <div className="mt-5 rounded-lg border border-black/10 bg-white p-5 shadow-sm"><p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#666666]">Contact options</p><div className="mt-4 flex flex-wrap gap-3">{website ? <Link href={website} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded bg-[#303030] px-4 py-2 text-sm font-semibold text-white">Website <ExternalLink className="h-4 w-4" /></Link> : null}{email ? <a href={`mailto:${email}`} className="inline-flex items-center gap-2 rounded border border-black/10 px-4 py-2 text-sm font-semibold"><Mail className="h-4 w-4" /> Email</a> : null}</div></div>
 }
 
 function BadgeLine({ label, value }: { label: string; value: string }) {
@@ -295,7 +295,7 @@ function RelatedPanel({ task, post, related, compact = false }: { task: TaskKey;
   const taskConfig = getTaskConfig(task)
   return (
     <aside className="mt-5 min-w-0 space-y-5">
-      {!compact ? <div className="rounded-lg border border-black/10 bg-white p-5 shadow-sm"><p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#666666]">About this post</p><div className="mt-4 grid gap-3 text-sm text-[#555555]"><p className="inline-flex items-center gap-2"><Tag className="h-4 w-4" /> Section: {taskConfig?.label || task}</p><p className="inline-flex items-center gap-2"><CheckCircle2 className="h-4 w-4" /> Site: {SITE_CONFIG.name}</p>{post.publishedAt ? <p>Published: {new Date(post.publishedAt).toLocaleDateString()}</p> : null}</div></div> : null}
+      
       {related.length ? <div className="rounded-lg border border-black/10 bg-white p-5 shadow-sm"><div className="flex items-center justify-between gap-3"><h2 className="text-lg font-semibold">Related listings</h2><Link href={taskConfig?.route || '/'} className="text-xs font-semibold uppercase tracking-[0.12em] text-[#2e76c2]">View all</Link></div><div className="mt-5 grid gap-3">{related.map((item) => <RelatedCard key={item.id || item.slug} task={task} post={item} />)}</div></div> : null}
     </aside>
   )

@@ -36,7 +36,7 @@ export function TaskEmptyState({ taskLabel = 'posts', className }: { taskLabel?:
   return (
     <EmptyState
       className={className}
-      title={`No ${taskLabel} available on Reniwn yet`}
+      title={`No ${taskLabel} available yet`}
       description={`Published ${taskLabel} for deals, property, jobs, services, or related marketplace browsing will appear here automatically.`}
       actionLabel="Browse Reniwn"
       actionHref="/"

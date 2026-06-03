@@ -93,15 +93,22 @@ export function TaskArchiveView({ task, posts, pagination, category, basePath }:
   return (
     <EditableSiteShell>
       <main className="bg-[#f4f8ff] text-[#222222]">
-        <section className="bg-white">
-          <div className="mx-auto grid max-w-[1168px] gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[1fr_360px] lg:px-0 lg:py-16">
+        <section className="bg-[linear-gradient(180deg,#ffffff_0%,#f4f8ff_100%)]">
+          <div className="mx-auto grid max-w-[1168px] gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[1.08fr_0.92fr] lg:px-0 lg:py-16">
             <div>
               <Link href="/" className="inline-flex rounded bg-[#ffe252] px-4 py-3 text-sm font-medium text-black">Back to Home</Link>
-              <div className="mt-8 inline-flex items-center gap-2 rounded border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-[#2e76c2]"><Icon className="h-4 w-4" /> {deck.label}</div>
+              <div className="mt-8 inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-[#2e76c2]">
+                <Icon className="h-4 w-4" /> {deck.label}
+              </div>
               <h1 className="mt-5 max-w-4xl text-4xl font-semibold leading-tight text-[#242424] sm:text-5xl">{voice?.headline || `Browse ${taskConfig?.label || deck.label}`}</h1>
               <p className="mt-5 max-w-3xl text-lg leading-8 text-[#555555]">{voice?.description || SITE_CONFIG.description}</p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                {voice?.chips.map((chip) => (
+                  <span key={chip} className="rounded-full border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-[#444444]">{chip}</span>
+                ))}
+              </div>
             </div>
-            <form action={basePath} className="self-end rounded-lg border border-black/10 bg-white p-5 shadow-[0_2px_10px_rgba(0,0,0,0.08)]">
+            <form action={basePath} className="self-start rounded-[2rem] border border-black/10 bg-white p-6 shadow-[0_16px_40px_rgba(0,0,0,0.08)]">
               <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] text-[#555555]"><Filter className="h-4 w-4" /> Filter category</div>
               <select name="category" defaultValue={category} className="mt-4 h-12 w-full rounded border border-black/10 bg-white px-4 text-sm outline-none">
                 <option value="all">All categories</option>
@@ -115,13 +122,13 @@ export function TaskArchiveView({ task, posts, pagination, category, basePath }:
 
         <section className="mx-auto max-w-[1168px] px-4 py-12 sm:px-6 lg:px-0">
           {posts.length ? (
-            <div className={deck.className}>
+            <div className={`${deck.className} gap-5`}>
               {posts.map((post, index) => <ArchivePostCard key={post.id || post.slug} post={post} task={task} basePath={basePath} index={index} />)}
             </div>
           ) : (
             <div className="rounded-lg border border-dashed border-black/15 bg-white p-12 text-center shadow-sm">
               <Search className="mx-auto h-9 w-9 text-[#999999]" />
-              <h2 className="mt-4 text-3xl font-semibold text-[#222222]">No posts found</h2>
+              <h2 className="mt-4 text-3xl font-semibold text-[#222222]">No Reniwn posts found</h2>
               <p className="mt-2 text-sm text-[#666666]">Try another category or check back after new posts are published.</p>
             </div>
           )}
@@ -156,7 +163,7 @@ function ArticleArchiveCard({ post, href, index }: { post: SitePost; href: strin
       </div>
       <div className="p-5">
         <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#2e76c2]">Article {String(index + 1).padStart(2, '0')}</p>
-        <h2 className="mt-2 line-clamp-3 text-xl font-normal leading-snug text-black">{post.title || 'Untitled article'}</h2>
+        <h2 className="mt-2 line-clamp-3 text-xl font-normal leading-snug text-black">{post.title || 'Reniwn marketplace article'}</h2>
         <p className="mt-3 line-clamp-3 text-sm leading-6 text-[#666666]">{getSummary(post)}</p>
       </div>
     </Link>
@@ -172,7 +179,7 @@ function ListingArchiveCard({ post, href }: { post: SitePost; href: string }) {
         {logo ? <img src={logo} alt="" className="h-full w-full object-cover" /> : <BriefcaseBusiness className="h-10 w-10 text-[#999999]" />}
       </div>
       <div>
-        <p className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-[0.12em] text-[#2e76c2]">{location ? <MapPin className="h-3.5 w-3.5" /> : null}{location || 'Directory'}</p>
+        <p className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-[0.12em] text-[#2e76c2]">{location ? <MapPin className="h-3.5 w-3.5" /> : null}{location || 'Reniwn listing'}</p>
         <h2 className="mt-3 text-2xl font-semibold leading-tight">{post.title || 'Business listing'}</h2>
         <p className="mt-3 line-clamp-3 text-sm leading-6 text-[#666666]">{getSummary(post)}</p>
       </div>
@@ -185,19 +192,39 @@ function ClassifiedArchiveCard({ post, href }: { post: SitePost; href: string })
   const price = getField(post, ['price', 'amount', 'budget'])
   const location = getField(post, ['location', 'address', 'city'])
   const condition = getField(post, ['condition', 'type', 'availability'])
+  const summary = getSummary(post)
   return (
-    <Link href={href} className="group overflow-hidden rounded-lg border border-black/10 bg-white shadow-[0_2px_10px_rgba(0,0,0,0.10)] transition hover:-translate-y-1">
-      <div className="grid min-h-60 sm:grid-cols-[0.62fr_1fr]">
-        <div className="relative bg-[#303030] p-5 text-white">
-          <span className="rounded bg-[#ffd83d] px-3 py-1 text-xs font-bold text-black">Classified</span>
-          <h2 className="mt-9 text-3xl font-bold text-[#ffdf39]">{price || 'Open offer'}</h2>
-          <p className="mt-4 text-sm text-white/80">{location || condition || 'Details inside'}</p>
-          {image ? <img src={image} alt="" className="absolute bottom-4 right-4 h-20 w-20 rounded object-cover" /> : null}
+    <Link href={href} className="group block overflow-hidden rounded-[18px] border border-black/10 bg-white shadow-[0_2px_10px_rgba(0,0,0,0.10)] transition hover:-translate-y-1 hover:shadow-[0_14px_34px_rgba(0,0,0,0.14)]">
+      <div className="grid min-h-64 sm:grid-cols-[0.72fr_1fr]">
+        <div className="relative overflow-hidden bg-[#2f2f2f] p-5 text-white">
+          <div className="flex items-center justify-between gap-3">
+            <span className="rounded bg-[#ffd83d] px-3 py-1 text-xs font-bold text-black">Classified</span>
+            <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-white/60">Reniwn</span>
+          </div>
+
+          <h2 className="mt-8 max-w-[10ch] text-4xl font-bold leading-[0.95] text-[#ffdf39]">{price || 'Open offer'}</h2>
+          <p className="mt-4 text-sm leading-6 text-white/80">{location || condition || 'Details inside'}</p>
+
+          <div className="mt-8 overflow-hidden rounded-2xl border border-white/10 bg-[#1f1f1f]">
+            {image ? <img src={image} alt="" className="h-36 w-full object-cover transition duration-500 group-hover:scale-105" /> : <div className="h-36 w-full bg-[linear-gradient(135deg,#3a3a3a_0%,#232323_100%)]" />}
+          </div>
         </div>
-        <div className="p-6">
-          <h2 className="text-2xl font-semibold leading-tight">{post.title || 'Classified post'}</h2>
-          <p className="mt-4 line-clamp-4 text-sm leading-6 text-[#666666]">{getSummary(post)}</p>
-          <p className="mt-6 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] text-[#2e76c2]">View listing <ArrowRight className="h-4 w-4" /></p>
+
+        <div className="flex min-w-0 flex-col p-6 sm:p-7">
+          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#2e76c2]">
+            <span className="h-2 w-2 rounded-full bg-[#ff5b24]" />
+            <span>{location || condition || 'Marketplace listing'}</span>
+          </div>
+
+          <h2 className="mt-4 line-clamp-3 text-2xl font-semibold leading-tight text-[#222222]">{post.title || 'Classified post'}</h2>
+          <p className="mt-4 line-clamp-4 text-sm leading-7 text-[#666666]">{summary}</p>
+
+          <div className="mt-auto flex items-center justify-between gap-4 pt-6">
+            <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] text-[#2e76c2]">
+              View listing <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+            </span>
+            <span className="text-xs font-semibold uppercase tracking-[0.12em] text-[#666666]">{condition || 'Updated listing'}</span>
+          </div>
         </div>
       </div>
     </Link>

@@ -18,7 +18,7 @@ export function getEditablePostImage(post?: SitePost | null) {
 }
 
 export function getEditableExcerpt(post?: SitePost | null, limit = 150) {
-  const content = post?.content && typeof post.content === 'object' ? content as Record<string, unknown> : {}
+  const content = post?.content && typeof post.content === 'object' ? post.content as Record<string, unknown> : {}
   const raw =
     (typeof content.description === 'string' && content.description) ||
     (typeof content.summary === 'string' && content.summary) ||
@@ -66,7 +66,7 @@ export function RailPostCard({ post, href, index }: { post: SitePost; href: stri
       </div>
       <div className="p-5">
         <p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#2e76c2]">{getEditableCategory(post)}</p>
-        <h3 className="mt-2 line-clamp-3 text-xl font-normal leading-snug text-black">{post.title || 'Untitled post'}</h3>
+        <h3 className="mt-2 line-clamp-3 text-xl font-normal leading-snug text-black">{post.title || 'Reniwn marketplace post'}</h3>
         <p className="mt-3 line-clamp-3 text-sm leading-6 text-[#666666]">{getEditableExcerpt(post, 120)}</p>
       </div>
     </Link>
@@ -79,7 +79,7 @@ export function CompactIndexCard({ post, href, index }: { post: SitePost; href: 
       <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#303030] text-sm font-bold text-[#ffdf39]">{String(index + 1).padStart(2, '0')}</span>
       <span className="min-w-0">
         <span className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-[#2e76c2]"><Clock3 className="h-3.5 w-3.5" /> {getEditableCategory(post)}</span>
-        <span className="mt-2 block line-clamp-2 text-lg font-semibold leading-tight text-[#222222]">{post.title || 'Untitled post'}</span>
+        <span className="mt-2 block line-clamp-2 text-lg font-semibold leading-tight text-[#222222]">{post.title || 'Reniwn marketplace post'}</span>
         <span className="mt-2 block line-clamp-2 text-sm leading-6 text-[#666666]">{getEditableExcerpt(post, 90)}</span>
       </span>
     </Link>
@@ -95,7 +95,7 @@ export function ArticleListCard({ post, href, index }: { post: SitePost; href: s
       </div>
       <div className="p-5 sm:p-6">
         <p className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.12em] text-[#2e76c2]"><FileText className="h-4 w-4" /> Read {String(index + 1).padStart(2, '0')}</p>
-        <h2 className="mt-3 line-clamp-3 text-2xl font-semibold leading-tight text-[#111111]">{post.title || 'Untitled post'}</h2>
+        <h2 className="mt-3 line-clamp-3 text-2xl font-semibold leading-tight text-[#111111]">{post.title || 'Reniwn marketplace post'}</h2>
         <p className="mt-3 line-clamp-3 text-sm leading-7 text-[#666666]">{getEditableExcerpt(post, 175) || 'Open this post for the full details and related information.'}</p>
         <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#2e76c2]">Open post <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" /></span>
       </div>
