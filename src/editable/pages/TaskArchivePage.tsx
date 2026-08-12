@@ -33,10 +33,18 @@ const getImages = (post: SitePost) => {
 
 const getImage = (post: SitePost) => getImages(post)[0] || placeholder
 const getCategory = (post: SitePost, fallback: string) => asText(getContent(post).category) || post.tags?.[0] || fallback
+function stripHtml(value: string) {
+  let text = value.replace(/<[^>]*>/g, ' ')
+  text = text.replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
+  text = text.replace(/&#x([0-9a-fA-F]+);/g, (_, h) => String.fromCharCode(parseInt(h, 16)))
+  text = text.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+  text = text.replace(/<[^>]*>/g, ' ')
+  return text.replace(/\s+/g, ' ').trim()
+}
 const getSummary = (post: SitePost) => {
   const content = getContent(post)
   const raw = post.summary || asText(content.description) || asText(content.summary) || asText(content.excerpt) || asText(content.body)
-  return raw.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim()
+  return stripHtml(raw)
 }
 const getField = (post: SitePost, keys: string[]) => {
   const content = getContent(post)
