@@ -82,9 +82,17 @@ const formatPlainText = (raw: string) => {
   return value.split(/\n{2,}/).map((part) => `<p>${linkifyText(escapeHtml(part).replace(/\n/g, '<br />'))}</p>`).join('')
 }
 
+function stripHtml(value: string) {
+  let text = value.replace(/<[^>]*>/g, ' ')
+  text = text.replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
+  text = text.replace(/&#x([0-9a-fA-F]+);/g, (_, h) => String.fromCharCode(parseInt(h, 16)))
+  text = text.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+  text = text.replace(/<[^>]*>/g, ' ')
+  return text.replace(/\s+/g, ' ').trim()
+}
 const summaryText = (post: SitePost) => {
   const content = getContent(post)
-  return post.summary || asText(content.description) || asText(content.excerpt) || ''
+  return stripHtml(post.summary || asText(content.description) || asText(content.excerpt) || '')
 }
 export function TaskDetailView({ task, post, related, comments = [] }: { task: TaskKey; post: SitePost; related: SitePost[]; comments?: Array<{ id: string; name: string; comment: string; createdAt: string }> }) {
   return (
